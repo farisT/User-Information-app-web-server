@@ -1,0 +1,24 @@
+html
+	title Search Page
+	style
+	body
+		h1 Search PAGE
+
+		
+		p this is the person you were looking for:
+		p First name: #{thisFirst}  
+		p Last name: #{thisLast}
+		p Email: #{thisEmail}
+
+
+
+
+
+		form(method="POST" action="search")
+				input(type="text" name = "first" placeholder="First Name")
+				input(type="text" name = "last" placeholder="Last Name")
+				input(type="text" name = "email" placeholder="E-mail")
+				input(type="submit" value="submit")
+
+		p continue searching?
+
