@@ -65,9 +65,50 @@ app.post("/make", function(req, res) {
   })
 
 
+app.post("/suggestion", function(req,res) {
+	console.log("reached")
+	fs.readFile('./users.json',function(err,data) {
+		 if (err) { throw err };
+		 var letsSuggest = JSON.parse(data)
+		 var suggest = req.body.input
+		 var list = []
+		 console.log("Suggest", suggest)
+
+		 for (var i = 0; i < letsSuggest.length; i++) {
+		 	// if(req.body.input!==""){
+            if (letsSuggest[i].firstname.toLowerCase().match(suggest) || (letsSuggest[i].lastname.toLowerCase().match(suggest)) || (letsSuggest[i].email.toLowerCase().match(suggest)) ) {
+                console.log("WOOOHOO")
+                // res.json({firstname:letsSuggest[i].firstname, lastname:letsSuggest[i].lastname, email:letsSuggest[i].email})
+                list.push(letsSuggest[i].firstname + " "  + letsSuggest[i].lastname + " | ")
+               
+                
+                
+            }
+            
+
+        }
+        if (letsSuggest.length !==0){
+        	console.log("we did it")
+        	res.json({input:list})
+        }
+        // if (!found){res.end()}
+
+
+      
+
+
+
+
+
+
+	})
+
+})
 
 
 
 app.listen(3003, () => {
     console.log("listening")
 })
+
+

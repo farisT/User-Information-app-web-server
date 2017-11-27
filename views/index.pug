@@ -1,28 +1,89 @@
 html
-	title Index Page
+	head
+		title Index Page
 	style
+			include pug.css
 	body
+		script(src="https://code.jquery.com/jquery-3.2.1.js")
 		h1 This is the index page
+	
+
+	
+		//- input(type="text" name = "first" placeholder="First Name")
+		//- input(type="text" name = "last" placeholder="Last Name")
+		//- input(type="text" name = "email" placeholder="E-mail")
+		//- input(type="submit" value="submit")
 
 
-
-		p Welcome to our Site!
-
-
-
-		p Checkout all the other guys: 
-		
-		-	for (var i = 0; i < obj.length; i++) 
-				li #{obj[i].firstname} #{obj[i].lastname} #{obj[i].email}
-
+		input(id="look" name="dog" placeholder="search")
+		br
+		br
 		br
 
+		p Were you looking for?
 
-		form(method="POST" action="search")
-				input(type="text" name = "first" placeholder="First Name")
-				input(type="text" name = "last" placeholder="Last Name")
-				input(type="text" name = "email" placeholder="E-mail")
-				input(type="submit" value="submit")
+		p(id="yay") 
+		
 
 
 		a(href="create") Register here
+
+		script.
+			$(document).ready(function(){
+			var globalTimeout = null;  
+				$("#look").keyup(function(e){var dog = {input: e.target.value}
+					console.log(dog)
+				if(globalTimeout != null) clearTimeout(globalTimeout);
+				globalTimeout =setTimeout(SearchFunc,300);
+				function SearchFunc(){ globalTimeout = null; 
+					console.log("hiii")
+					
+
+					$.ajax({
+							type: "POST",
+							url:"/suggestion",
+							data: dog,
+							dataType: 'json',
+							success: function(result){
+								$("#yay").html(result.input)
+								
+
+
+								console.log("Result" , result.index)
+								
+							},
+							error: function(err){
+								console.log(err)
+							}
+					});} 
+			})
+			})
+
+
+
+
+
+
+
+
+			//- $.getJSON("userManagementSystem/users.json", function(data){
+			//- console.log("it worked")
+			//- })
+
+
+			//- $("button").click(function() {
+			//- 				var fn = $("first").firstname() //this searches the input value within the pokeapi/my local files
+			//- 		console.log("this is: ", fn)
+			//- 		$.ajax( {
+			//- 			url: "./users.json" + fn, 
+			//- 			type:"GET",
+			//- 			dataType: "json",
+						
+			//- 			success:function(data,textStatus, jqXHR){
+			//- 				console.log(data)
+			//- 				$("#name").html(data.firstname),
+			//- 				$("#ls").html(data.lastname)	
+			//- 		}
+			
+					//- })
+				//- })
