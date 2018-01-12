@@ -107,8 +107,8 @@ app.post("/suggestion", function(req,res) {
 
 
 
-app.listen(3003, () => {
-    console.log("listening")
+app.listen(3000, () => {
+    console.log("listening to 3000")
 })
 
 
